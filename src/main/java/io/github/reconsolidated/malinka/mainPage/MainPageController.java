@@ -30,7 +30,7 @@ public class MainPageController {
                            @RequestParam(required = false) String promotionCategory,
                            Model model) {
 
-        if (category == null) {
+        if (category == null || category.trim().equals("")) {
             category = "all";
         }
         if (promotionCategory == null) {

@@ -2,6 +2,7 @@ package io.github.reconsolidated.malinka.orders;
 
 import io.github.reconsolidated.malinka.basket.BasketService;
 import io.github.reconsolidated.malinka.mainPage.ProductsService;
+import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,10 @@ public class OrderService {
     public OrderService(BasketService basketService, ProductsService productsService) {
         this.basketService = basketService;
         this.productsService = productsService;
+    }
 
+//    @PostConstruct
+    public void fillOldOrders() {
         for (int i = 0; i<3; i++) {
             for (int j = 0; j<10; j++) {
                 basketService.addProduct(productsService.getRandomProduct(), (int)(Math.random() * 10));
@@ -39,12 +43,11 @@ public class OrderService {
             currentOrder.setAmount(basketService.getProductsInBasket().size());
             currentOrder.setDate(LocalDateTime.now().minusDays(i).minusMinutes(i * 8L));
             currentOrder.getProducts().addAll(basketService.getProductsInBasket());
+            currentOrder.getLoyaltyProducts().addAll(basketService.getLoyaltyProductsInBasket());
             saveOrder();
             basketService.clearBasket();
         }
-
     }
-
     public void saveOrder() {
         currentOrder.setDate(LocalDateTime.now());
         ordersHistory.add(currentOrder);

@@ -68,11 +68,17 @@ public class BasketController {
 
 
     @GetMapping("/basket")
-    public String basketPage(Model model) {
+    public String basketPage(Model model,
+                             RedirectAttributes redirectAttributes) {
+
         List<BasketProduct> basketProducts = basketService.getProductsInBasket();
         List<BasketLoyaltyProduct> basketLoyaltyProducts = basketService.getLoyaltyProductsInBasket();
 
         if(basketProducts.isEmpty() && basketLoyaltyProducts.isEmpty()) {
+            List<Product> randomProducts = productsService.getUniqueRandomForMainPage();
+            model.addAttribute("randomProducts", randomProducts);
+            List<LoyaltyProduct> loyaltyProducts = loyaltyProductsService.getLoyaltyProducts();
+            model.addAttribute("loyaltyProducts", loyaltyProducts);
             return "basket_empty";
         }
         User user = userService.getUserByUsername("jkowal");

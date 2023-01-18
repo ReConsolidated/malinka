@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -62,6 +63,5 @@ public class MainPageController {
         model.addAttribute("basketTotal", String.format("%.2f", basketService.getTotal()) + " zł");
         return "transaction_history";
     }
-
 
 }

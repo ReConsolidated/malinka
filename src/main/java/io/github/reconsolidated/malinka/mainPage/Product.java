@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import java.util.Objects;
 
+import static jakarta.persistence.GenerationType.IDENTITY;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,7 +17,7 @@ import java.util.Objects;
 @Entity
 public class Product {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = IDENTITY)
     @Column(name="IdProduktu")
     private Long generatedId;
     @Column(name="NazwaProduktu")
@@ -24,8 +26,8 @@ public class Product {
     private String fileName = "default";
     @Column(name="Cena")
     private double price = 0.01;
-    @Column(name="RodzajCeny")
-    private Integer priceType = 0;
+//    @Column(name="RodzajCeny")
+//    private Integer priceType = 0;
     @Column(name="Kategoria")
     private String category = "default";
     @Column(name="CreatedAt")
@@ -35,8 +37,9 @@ public class Product {
 
     @Transient
     private Long id;
-    @Transient
+    @Column(name="RodzajCeny")
     private String priceTag = "default";
+    @Column(name="CzyPromocja")
     private boolean isOnSale = false;
 
     public Product(String name, String fileName, String category, String priceTag, double price, boolean isOnSale) {

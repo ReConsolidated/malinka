@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 @Service
@@ -28,15 +29,23 @@ public class ProductsService {
     }
 
     public Product getRandomProduct() {
-        return productsRepository.getRandomProduct();
+        Random random = new Random();
+        List<Product> products = productsRepository.findAll();
+        System.out.println(products);
+        int randomIndex = random.nextInt(products.size());
+        return products.get(randomIndex);
     }
 
     public List<Product> getUniqueRandomForMainPage() {
        Set<Product> uniqueProducts = new HashSet<Product>();
        while (uniqueProducts.size() < Constants.RANDOM_PRODUCTS_FOR_MAIN_PAGE) {
-           uniqueProducts.add(productsRepository.getRandomProduct());
+           uniqueProducts.add(getRandomProduct());
        }
 
        return uniqueProducts.stream().toList();
+    }
+
+    public List<Product> getAll() {
+        return productsRepository.findAll();
     }
 }

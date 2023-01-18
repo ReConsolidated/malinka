@@ -19,6 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
+import static io.github.reconsolidated.malinka.utils.Constants.LOYALTY_POINTS_MULTIPLIER;
+
 @Controller
 @AllArgsConstructor
 public class OrderController {
@@ -55,7 +57,7 @@ public class OrderController {
             @RequestParam(name="local_num", required = false) String localNum,
             @RequestParam(name="select-parcel-locker", required = false) String selectParcelLocker,
             @RequestParam(name="pickup-time", required = false) String pickupTime,
-            @RequestParam(name="shipment_type", required = false) String shipment_type,
+            @RequestParam(name= "shipment_type", required = false) String shipmentType,
             RedirectAttributes redirectAttributes) {
         orderService.getCurrentOrder().setAddress(address);
         orderService.getCurrentOrder().setCity(city);
@@ -64,12 +66,12 @@ public class OrderController {
         orderService.getCurrentOrder().setSelectParcelLocker(selectParcelLocker);
         orderService.getCurrentOrder().setPickupTime(pickupTime);
 
-        if (shipment_type.equals("standard")) {
+        if (shipmentType.equals("standard")) {
             orderService.getCurrentOrder().setDeliveryMethod(DeliveryMethod.STANDARD);
             orderService.getCurrentOrder().setDelivery(new StandardDelivery(
                     address, city, street, localNum
             ));
-        } else if (shipment_type.equals("parcel")) {
+        } else if (shipmentType.equals("parcel")) {
             orderService.getCurrentOrder().setDeliveryMethod(DeliveryMethod.PARCEL);
             orderService.getCurrentOrder().setDelivery(new ParcelDelivery(selectParcelLocker));
         } else {
@@ -104,9 +106,18 @@ public class OrderController {
                               RedirectAttributes redirectAttributes) {
 
         if (isPaid.equals("Tak")) {
+            Order current = orderService.getCurrentOrder();
+            Double total = basketService.getTotal();
+            int loyaltyTotal = basketService.getLoyaltyTotal();
+
+            int additionalLoyaltyPoints = (int) (total * LOYALTY_POINTS_MULTIPLIER);
+
+
             orderService.getCurrentOrder().setPaymentSuccessful(true);
             orderService.saveOrder();
             basketService.clearBasket();
+            User user = userService.getUserByUsername("jkowal");
+            user.setLoyaltyPoints(user.getLoyaltyPoints() + additionalLoyaltyPoints - loyaltyTotal);
             return "redirect:/success";
         } else {
             redirectAttributes.addAttribute("orderNum", String.valueOf(orderService.getCurrentOrder().getId()));

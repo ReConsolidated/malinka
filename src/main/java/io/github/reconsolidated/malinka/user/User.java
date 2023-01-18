@@ -3,6 +3,8 @@ package io.github.reconsolidated.malinka.user;
 import jakarta.persistence.*;
 import lombok.*;
 
+import static jakarta.persistence.GenerationType.IDENTITY;
+
 @Entity(name="Konto")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -10,7 +12,7 @@ import lombok.*;
 @Setter
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = IDENTITY)
     @Column(name="IdKonta")
     private Long id;
     @Column(name="NazwaUzytkownika")

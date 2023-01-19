@@ -11,6 +11,9 @@ import lombok.Setter;
 
 import java.util.Objects;
 
+/**
+ *  specific class for loyalty product
+ **/
 @Getter
 @Setter
 @NoArgsConstructor

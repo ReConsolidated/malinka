@@ -4,6 +4,7 @@ import io.github.reconsolidated.malinka.basket.BasketService;
 import io.github.reconsolidated.malinka.mainPage.ProductsService;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
@@ -13,20 +14,24 @@ import java.util.List;
 
 @Service
 public class OrderService {
+    @Autowired
     private final BasketService basketService;
     private final List<Order> ordersHistory = new ArrayList<>();
+    @Autowired
     private final ProductsService productsService;
 
     @Getter
     private Order currentOrder = new Order();
 
-    public OrderService(BasketService basketService, ProductsService productsService) {
+    @Autowired
+    public OrderService(@Autowired BasketService basketService,@Autowired ProductsService productsService) {
         this.basketService = basketService;
         this.productsService = productsService;
-    }
 
-//    @PostConstruct
-    public void fillOldOrders() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+        }
         for (int i = 0; i<3; i++) {
             for (int j = 0; j<10; j++) {
                 basketService.addProduct(productsService.getRandomProduct(), (int)(Math.random() * 10));
@@ -47,6 +52,11 @@ public class OrderService {
             saveOrder();
             basketService.clearBasket();
         }
+    }
+
+//    @PostConstruct
+    public void fillOldOrders() {
+
     }
     public void saveOrder() {
         currentOrder.setDate(LocalDateTime.now());

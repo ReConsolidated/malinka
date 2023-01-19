@@ -5,6 +5,9 @@ import lombok.*;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
+/**
+ * user model
+ */
 @Entity(name="Konto")
 @AllArgsConstructor
 @NoArgsConstructor

@@ -4,6 +4,9 @@ import io.github.reconsolidated.malinka.mainPage.Product;
 import jakarta.persistence.*;
 import lombok.*;
 
+/**
+ * product in basket with quantity
+ **/
 @NoArgsConstructor
 @Getter
 @Setter
@@ -23,7 +26,10 @@ public class BasketProduct {
     @Transient
     private Product product = new Product();
 
-
+    /**
+     * get total from products price and quantity
+     * @return
+     */
     public String getTotal() {
         return String.format("%.2f", product.getPrice() * quantity);
     }

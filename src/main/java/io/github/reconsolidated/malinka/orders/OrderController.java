@@ -21,6 +21,9 @@ import java.util.List;
 
 import static io.github.reconsolidated.malinka.utils.Constants.LOYALTY_POINTS_MULTIPLIER;
 
+/**
+ * controller for order
+ */
 @Controller
 @AllArgsConstructor
 public class OrderController {
@@ -28,6 +31,13 @@ public class OrderController {
     private final OrderService orderService;
 
     private final UserService userService;
+
+    /**
+     * get shipment
+     * @param redirectAttributes
+     * @param model
+     * @return
+     */
     @GetMapping("/shipment")
     public String shipment(
             RedirectAttributes redirectAttributes,
@@ -49,6 +59,18 @@ public class OrderController {
         return "shipment_select";
     }
 
+    /**
+     * get selectshipment
+     * @param address
+     * @param city
+     * @param street
+     * @param localNum
+     * @param selectParcelLocker
+     * @param pickupTime
+     * @param shipmentType
+     * @param redirectAttributes
+     * @return
+     */
     @PostMapping("/select_shipment")
     public String selectShipment(
             @RequestParam(name="address", required = false) String address,
@@ -82,6 +104,12 @@ public class OrderController {
         return "redirect:/payment";
     }
 
+
+    /**
+     * get page for payment
+     * @param model
+     * @return
+     */
     @GetMapping("/payment")
     public String payment(Model model) {
         List<BasketProduct> basketProducts = basketService.getProductsInBasket();
@@ -101,6 +129,12 @@ public class OrderController {
         return "payment_select";
     }
 
+    /**
+     * get page for payment info
+     * @param isPaid
+     * @param redirectAttributes
+     * @return
+     */
     @PostMapping("/payment_info")
     public String paymentInfo(@RequestParam(name="pay") String isPaid,
                               RedirectAttributes redirectAttributes) {
@@ -128,6 +162,13 @@ public class OrderController {
         }
     }
 
+    /**
+     * get page for pay for ordder
+     * @param paymentMethod
+     * @param model
+     * @param redirectAttributes
+     * @return
+     */
     @PostMapping("/pay_for_order")
     public String payForOrder(@RequestParam(name="payment") String paymentMethod,
                               Model model,
@@ -150,6 +191,12 @@ public class OrderController {
         return "payment_try";
     }
 
+
+    /**
+     * get success page
+     * @param model
+     * @return
+     */
     @GetMapping("/success")
     public String success(Model model) {
         List<BasketProduct> basketProducts = basketService.getProductsInBasket();
@@ -164,6 +211,12 @@ public class OrderController {
         return "payment_success";
     }
 
+    /**
+     * get page for fail
+     * @param orderNumber
+     * @param model
+     * @return
+     */
     @GetMapping("/fail")
     public String fail(@RequestParam(name="orderNum") String orderNumber,
                        Model model) {

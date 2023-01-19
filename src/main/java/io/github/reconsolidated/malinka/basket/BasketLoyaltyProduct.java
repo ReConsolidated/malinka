@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * loyalty product for basket
+ **/
 @NoArgsConstructor
 @Getter
 @Setter
@@ -23,6 +26,10 @@ public class BasketLoyaltyProduct {
     @Transient
     private LoyaltyProduct loyaltyProduct = new LoyaltyProduct();
 
+    /**
+     * get total from product
+     * @return
+     */
     public int getTotal() {
         return quantity * loyaltyProduct.getPoints();
     }

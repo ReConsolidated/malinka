@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+/**
+ *  this is controller for main page
+ **/
 @Controller
 @AllArgsConstructor
 public class MainPageController {
@@ -25,6 +28,13 @@ public class MainPageController {
 
     private final UserService userService;
 
+    /**
+     * controller for main page index
+     * @param category selected category
+     * @param promotionCategory promotion categoru
+     * @param model model
+     * @return
+     */
     @GetMapping("/")
     public String mainPage(@RequestParam(required = false) String category,
                            @RequestParam(required = false) String promotionCategory,
@@ -56,6 +66,11 @@ public class MainPageController {
         return "index";
     }
 
+    /**
+     * endpoint for history
+     * @param model
+     * @return
+     */
     @GetMapping("/history")
     public String transactionHistory(Model model) {
         model.addAttribute("orders", orderService.getOrders());

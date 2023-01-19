@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ *  specific class for parcel delivery
+ **/
 @Setter
 @Getter
 @Entity

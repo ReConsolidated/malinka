@@ -1,5 +1,8 @@
 package io.github.reconsolidated.malinka.delivery;
 
+/**
+ * enum for delivery with price
+ **/
 public enum DeliveryMethod {
     //name of delivery and price
     STANDARD(5.20),

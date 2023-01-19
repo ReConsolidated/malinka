@@ -7,6 +7,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ *  this is repository for loyalty products service
+ **/
 @Service
 public class LoyaltyProductsService {
 

@@ -1,4 +1,5 @@
 
+
 var radios = document.querySelectorAll('input[type=radio]');
 var checked = document.querySelectorAll('input[type=radio]:checked');
 var error_not_selected = document.getElementById('error_not_selected');

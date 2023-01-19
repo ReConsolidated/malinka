@@ -10,6 +10,9 @@ import java.util.Objects;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
+/**
+ * class for product
+ */
 @Getter
 @Setter
 @NoArgsConstructor

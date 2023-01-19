@@ -6,6 +6,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Random;
 
+/**
+ *  this is repository for connecting to database and localproducts
+ **/
 @Repository
 public interface LoyaltyProductsRepository extends JpaRepository<LoyaltyProduct, Long> {
 

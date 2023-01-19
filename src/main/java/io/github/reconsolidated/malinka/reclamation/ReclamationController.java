@@ -9,11 +9,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ * controller fo reclamation
+ */
 @Controller
 @AllArgsConstructor
 public class ReclamationController {
     private final BasketService basketService;
     private final OrderService orderService;
+
+    /**
+     * page for reclamation success
+     * @param model
+     * @return
+     */
     @GetMapping("/reclamation_success")
     public String reclamationSuccess(Model model) {
         model.addAttribute("basket", basketService.getProductsInBasket());
@@ -21,6 +30,12 @@ public class ReclamationController {
         return "reclamation_success";
     }
 
+    /**
+     * get page for reclamation
+     * @param orderId
+     * @param model
+     * @return
+     */
     @GetMapping("/reclamation")
     public String reclamationsPage(@RequestParam("orderId") long orderId, Model model) {
         Order order = orderService.getOrders().stream().filter((o) -> o.getId() == orderId).findFirst().orElseThrow();

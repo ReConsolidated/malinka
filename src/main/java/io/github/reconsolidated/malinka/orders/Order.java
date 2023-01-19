@@ -12,6 +12,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * class for order
+ */
 @Getter
 @Setter
 @Entity(name = "orders")

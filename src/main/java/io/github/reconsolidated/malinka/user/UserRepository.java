@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * THIS IS A MOCK, CREATED TO PRESENT USE CASES, DO NOT USE IT IN PRODUCTION
+ * repository for user
  */
 @Repository
 public class UserRepository {
@@ -23,6 +23,11 @@ public class UserRepository {
         return users;
     }
 
+    /**
+     * get usert by username
+     * @param username
+     * @return
+     */
     public User getUserByUsername(String username) {
         for (User user: users) {
             if (user.getUsername().equals(username)) {

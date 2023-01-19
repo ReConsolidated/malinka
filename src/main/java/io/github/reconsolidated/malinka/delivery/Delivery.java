@@ -7,6 +7,9 @@ import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * abstract class for delivery
+ */
 @MappedSuperclass
 public abstract class Delivery {
     @Id
